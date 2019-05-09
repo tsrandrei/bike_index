@@ -9,6 +9,9 @@
           = current_organization.name
 
     %ul.organized-mainmenu
+      - if current_organization.ambassador_group?
+        %li
+          = active_link "Ambassadors", organization_ambassadors_path, class: "menu-item"
       %li
         - on_bikes_path = controller_name == "bikes" && action_name == "index" # Because we want to ignore queries and stuff
         = link_to "#{current_organization.short_name} Bikes", organization_bikes_path(organization_id: current_organization.to_param), match_controller: true, class: "menu-item #{on_bikes_path ? 'active' : ''}"
