@@ -5,7 +5,7 @@ module Organized
     layout "application_revised"
 
     def index
-      if current_organization.ambassador_group?
+      if current_organization.ambassador?
         redirect_to organization_ambassadors_path
       else
         redirect_to organization_bikes_path

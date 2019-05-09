@@ -9,7 +9,7 @@
           = current_organization.name
 
     %ul.organized-mainmenu
-      - if current_organization.ambassador_group?
+      - if current_organization.ambassador?
         %li
           = active_link "Ambassadors", organization_ambassadors_path, class: "menu-item"
       %li

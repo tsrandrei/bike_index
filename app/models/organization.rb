@@ -9,7 +9,7 @@ class Organization < ActiveRecord::Base
     software: 5,
     property_management: 6,
     other: 7,
-    ambassador_group: 8,
+    ambassador: 8,
   }.freeze
 
   acts_as_paranoid

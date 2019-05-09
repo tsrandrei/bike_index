@@ -8,7 +8,7 @@ FactoryBot.define do
   end
 
   factory :ambassadorship do
-    role { "ambassador_group" }
+    role { "ambassador" }
     organization { FactoryBot.create(:organization) }
     user { FactoryBot.create(:user) }
   end
