@@ -3,6 +3,8 @@ module Organized
     include SortableTable
 
     def index
+      # TODO: Associate bikes within a given region to the ambassador group for
+      # that region
       @page = params[:page] || 1
       @per_page = params[:per_page] || 25
       @bike_code = BikeCode.lookup_with_fallback(params[:bike_code], organization_id: current_organization.id) if params[:bike_code].present?
