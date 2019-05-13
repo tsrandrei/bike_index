@@ -121,6 +121,10 @@ class User < ActiveRecord::Base
 
   def developer?; developer end
 
+  def ambassador?
+    memberships&.any? { |m| m.organization.kind == "ambassador" }
+  end
+
   def to_param; username end
 
   def display_name; name.present? ? name : email end
