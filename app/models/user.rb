@@ -93,6 +93,11 @@ class User < ActiveRecord::Base
       (where("name ILIKE ? OR email ILIKE ?", search_str, search_str) +
        joins(:user_emails).where("user_emails.email ILIKE ?", search_str)).uniq
     end
+
+    def ambassadors
+      ambassadorships = Membership.where(organization: Organization.ambassador)
+      where(id: ambassadorships.select(:user_id))
+    end
   end
 
   def additional_emails=(value)

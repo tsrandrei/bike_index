@@ -1,6 +1,15 @@
 require "spec_helper"
 
 describe User do
+  describe ".ambassadors" do
+    it "returns any and only users who are ambassadors" do
+      FactoryBot.create(:user)
+      FactoryBot.create(:developer)
+      ambassadors = FactoryBot.create_list(:ambassador, 3)
+      expect(User.ambassadors).to eq(ambassadors)
+    end
+  end
+
   describe "validations" do
     it { is_expected.to have_many :user_emails }
     it { is_expected.to have_many :payments }
