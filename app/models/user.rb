@@ -122,7 +122,15 @@ class User < ActiveRecord::Base
   def developer?; developer end
 
   def ambassador?
-    memberships&.any? { |m| m.organization.kind == "ambassador" }
+    ambassador_index =
+      Organization
+        .kinds
+        .index { |kind| kind == "ambassador" }
+
+    memberships
+      .includes(:organization)
+      .where(organizations: { kind: ambassador_index })
+      .any?
   end
 
   def to_param; username end
