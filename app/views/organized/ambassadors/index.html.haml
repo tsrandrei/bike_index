@@ -16,10 +16,17 @@
       %tr
         %td= ambassador.name
         %td= ambassador.email
-        %td 50%
-
-  - if defined?(@ambassadors.total_count)
-    .paginate-container.paginate-container-bottom
-      = paginate @ambassadors
+        %td=# AmbassadorTask.completion_progress(ambassador)
 
 %h2 Tasks
+
+%table.table.table-striped.table-hover.table-bordered.table-sm.without-exterior-border
+  %thead.small-header
+    %tr
+      %th Description
+      %th Completed
+  %tbody
+    - @tasks.each do |task|
+      %tr
+        %td= task.description
+        %td= task.completed?
