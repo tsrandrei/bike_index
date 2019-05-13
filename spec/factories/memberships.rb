@@ -5,11 +5,11 @@ FactoryBot.define do
     factory :existing_membership do
       user { FactoryBot.create(:user) }
     end
-  end
 
-  factory :ambassadorship do
-    role { "ambassador" }
-    organization { FactoryBot.create(:organization) }
-    user { FactoryBot.create(:user) }
+    factory :ambassadorship do
+      role { "member" }
+      organization { FactoryBot.create(:ambassador_organization) }
+      user { FactoryBot.create(:user) }
+    end
   end
 end

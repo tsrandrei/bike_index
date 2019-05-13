@@ -566,6 +566,21 @@ describe User do
     end
   end
 
+  describe "ambassador?" do
+    it "returns true if the user has any ambassadorship" do
+      user = FactoryBot.create(:ambassador)
+      user.memberships << FactoryBot.create(:membership, user: user)
+      user.save
+
+      expect(user).to be_ambassador
+    end
+
+    it "returns false if the user has no ambassadorships" do
+      user = FactoryBot.create(:organization_member)
+      expect(user).to_not be_ambassador
+    end
+  end
+
   describe "admin_of?" do
     let(:organization) { FactoryBot.create(:organization) }
     context "admin of organization" do
