@@ -12,6 +12,8 @@
       - if current_organization.ambassador?
         %li
           = active_link "Ambassadors", organization_ambassadors_path, class: "menu-item"
+        %li
+          = active_link "Stolen Bikes", organization_stolen_bikes_path, class: "menu-item"
       - else
         %li
           - on_bikes_path = controller_name == "bikes" && action_name == "index" # Because we want to ignore queries and stuff
