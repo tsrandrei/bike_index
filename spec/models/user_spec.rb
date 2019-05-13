@@ -5,7 +5,7 @@ describe User do
     it "returns any and only users who are ambassadors" do
       FactoryBot.create(:user)
       FactoryBot.create(:developer)
-      ambassadors = FactoryBot.create_list(:ambassador, 3)
+      ambassadors = FactoryBot.create_list(:ambassador, 3).sort_by(&:created_at)
       expect(User.ambassadors).to eq(ambassadors)
     end
   end

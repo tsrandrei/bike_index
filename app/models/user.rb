@@ -96,7 +96,7 @@ class User < ActiveRecord::Base
 
     def ambassadors
       ambassadorships = Membership.where(organization: Organization.ambassador)
-      where(id: ambassadorships.select(:user_id))
+      where(id: ambassadorships.select(:user_id)).order(created_at: :asc)
     end
   end
 
