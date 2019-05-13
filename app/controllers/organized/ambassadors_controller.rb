@@ -1,7 +1,7 @@
 module Organized
   class AmbassadorsController < Organized::BaseController
-    include SortableTable
-
-    def index; end
+    def index
+      @ambassadors = User.ambassadors(organization: current_organization)
+    end
   end
 end
