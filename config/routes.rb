@@ -281,7 +281,6 @@ Bikeindex::Application.routes.draw do
     resources :messages, only: %i[index show create]
     resources :stickers, only: %i[index show edit update]
     resources :ambassadors, only: %i[index]
-    get :stolen_bikes, to: "ambassadors#stolen_bikes"
 
     # Organized Admin resources (below here controllers should inherit Organized::AdminController)
     resources :manage, only: %i[index update destroy] do
