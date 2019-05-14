@@ -16,7 +16,7 @@ describe AmbassadorTaskAssignment, type: :model do
     end
 
     it "is valid if given an ambassador" do
-      ambassador = FactoryBot.create(:ambassador)
+      ambassador = FactoryBot.create(:user_ambassador)
       task = FactoryBot.create(:ambassador_task)
       assignment = described_class.new(user: ambassador, ambassador_task: task)
       expect(assignment).to be_valid
@@ -25,7 +25,7 @@ describe AmbassadorTaskAssignment, type: :model do
 
   context "validates unqiueness of ambassador scoped to the user" do
     it "is valid if the task assignment is unique per-user" do
-      user = FactoryBot.create(:ambassador)
+      user = FactoryBot.create(:user_ambassador)
       task = FactoryBot.create(:ambassador_task)
       assignment = described_class.new(user: user, ambassador_task: task)
       expect(assignment).to be_valid

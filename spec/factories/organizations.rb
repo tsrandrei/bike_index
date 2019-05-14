@@ -14,7 +14,7 @@ FactoryBot.define do
       parent_organization { FactoryBot.create(:organization) }
     end
 
-    factory :ambassador_organization do
+    factory :organization_ambassador do
       kind { "ambassador" }
       sequence(:name) { |n| "Ambassador Group #{n}" }
     end
