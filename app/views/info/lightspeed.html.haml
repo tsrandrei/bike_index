@@ -61,7 +61,7 @@
   /     %li
   /       %a{ href: '#how_lightspeed_integration_works', data: {toggle: 'tab'} }
   /         How the integration works
-      
+
   /   .tab-content
   /     %span.vendor-tab-bg
   /     #what_we_are.tab-pane.active
@@ -105,16 +105,16 @@
   /                   Lightspeed Retail Integration
   /               - else
   /                 Click on the Lightspeed Retail Integration button (at the bottom of the page for your organization once you've signed up).
-                  
+
   /           %li
   /             %p
   /               Click on "integrate with Bike Index" and follow the steps with Lightspeed Retail to connect your account.
-          
+
   /         %p.padded
   /           And that's it. Every bike you sell will be registered, so long as you put in the customer's email and the bike has a serial number in the "serial number" field in Lightspeed.
   /         %p
   /           If a customer doesn't want to be registered, put "do not register" in the notes for the sale and we won't register the bike.
-          
+
   /         .alert.alert-info
   /           %p
   /             We will not automatically register bikes that were sold before you signed up for the integration.
@@ -127,6 +127,5 @@
   %article.padded.vendor-signup-form.bottom-padded#add_organization
     %h3
       Sign your shop up
-
 
     = render "/organizations/new_form"

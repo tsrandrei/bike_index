@@ -84,6 +84,11 @@ class Organization < ActiveRecord::Base
     where("paid_feature_slugs ?& array[:keys]", keys: matching_slugs)
   end
 
+  # Organization kinds creatable by non-superadmins
+  def self.creatable_kinds
+    kinds.reject { |kind| kind == "ambassador" }
+  end
+
   def to_param
     slug
   end

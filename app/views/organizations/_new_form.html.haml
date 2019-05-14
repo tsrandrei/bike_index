@@ -22,11 +22,11 @@
           .alert.alert-error
             %a.close{"data-dismiss" => "alert"} ×
             %h4
-              Please fix the following 
+              Please fix the following
               = pluralize(@organization.errors.count, "error")
             %ul
               - @organization.errors.full_messages.each do |msg|
-                %li 
+                %li
                   = msg
       .card
         .card-block
@@ -46,7 +46,7 @@
             %label.org-form-label
               Organization kind
             .col-sm-4
-              - Organization.kinds.each do |kind|
+              - Organization.creatable_kinds.each do |kind|
                 .radio
                   %label
                     = f.radio_button :kind, kind
@@ -61,5 +61,3 @@
     %p
       %small
         After you create a user account you'll be redirected to create your organization.
-  
-

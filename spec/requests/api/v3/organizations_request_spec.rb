@@ -87,6 +87,13 @@ describe "Organization API V3" do
         expect_json(error: "kind does not have a valid value")
       end
 
+      it "forbids creating non-privileged organization kinds" do
+        org_json = organization_attrs.merge(kind: "ambassador").to_json
+        post url, org_json, json_headers
+        expect_status 400
+        expect_json(error: "kind does not have a valid value")
+      end
+
       it "requires a valid website" do
         org_json = organization_attrs.merge(website: "funtimes://everyday.com").to_json
         post url, org_json, json_headers
