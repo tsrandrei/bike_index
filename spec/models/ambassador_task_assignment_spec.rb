@@ -5,7 +5,6 @@ describe AmbassadorTaskAssignment, type: :model do
   it { is_expected.to belong_to(:ambassador_task) }
   it { is_expected.to validate_presence_of(:user) }
   it { is_expected.to validate_presence_of(:ambassador_task) }
-  # it { is_expected.to validate_uniqueness_of(:ambassador_task).scoped_to(:user) }
 
   context "validates the associated user is an ambassador" do
     it "is invalid if given a non-ambassador" do
