@@ -595,7 +595,7 @@ describe User do
 
   describe "ambassador?" do
     it "returns true if the user has any ambassadorship" do
-      user = FactoryBot.create(:ambassador)
+      user = FactoryBot.create(:user_ambassador)
       user.memberships << FactoryBot.create(:membership, user: user)
       user.save
 

@@ -12,6 +12,8 @@ class Membership < ActiveRecord::Base
 
   after_commit :update_relationships
 
+  scope :ambassadorships, -> { where(organization: Organization.ambassador) }
+
   def self.membership_types
     MEMBERSHIP_TYPES
   end

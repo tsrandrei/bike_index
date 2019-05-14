@@ -38,6 +38,7 @@ class User < ActiveRecord::Base
 
   scope :confirmed, -> { where(confirmed: true) }
   scope :unconfirmed, -> { where(confirmed: false) }
+  scope :ambassadors, -> { where(id: Membership.ambassadorships.select(:user_id)).order(created_at: :asc) }
 
   validates_uniqueness_of :username, case_sensitive: false
 
@@ -93,12 +94,6 @@ class User < ActiveRecord::Base
       search_str = "%#{n.strip}%"
       (where("name ILIKE ? OR email ILIKE ?", search_str, search_str) +
        joins(:user_emails).where("user_emails.email ILIKE ?", search_str)).uniq
-    end
-
-    def ambassadors
-      ambassador_orgs = Organization.ambassador
-      ambassadorships = Membership.where(organization: ambassador_orgs)
-      where(id: ambassadorships.select(:user_id)).order(created_at: :asc)
     end
   end
 
