@@ -3,7 +3,7 @@
 --
 
 -- Dumped from database version 11.2
--- Dumped by pg_dump version 11.2
+-- Dumped by pg_dump version 11.3
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -12,6 +12,7 @@ SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SELECT pg_catalog.set_config('search_path', '', false);
 SET check_function_bodies = false;
+SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
 
@@ -67,6 +68,40 @@ CREATE SEQUENCE public.ads_id_seq
 --
 
 ALTER SEQUENCE public.ads_id_seq OWNED BY public.ads.id;
+
+
+--
+-- Name: ambassador_tasks; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.ambassador_tasks (
+    id integer NOT NULL,
+    description character varying DEFAULT ''::character varying NOT NULL,
+    completed boolean DEFAULT false NOT NULL,
+    user_id integer NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: ambassador_tasks_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.ambassador_tasks_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: ambassador_tasks_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.ambassador_tasks_id_seq OWNED BY public.ambassador_tasks.id;
 
 
 --
@@ -2054,6 +2089,13 @@ ALTER TABLE ONLY public.ads ALTER COLUMN id SET DEFAULT nextval('public.ads_id_s
 
 
 --
+-- Name: ambassador_tasks id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.ambassador_tasks ALTER COLUMN id SET DEFAULT nextval('public.ambassador_tasks_id_seq'::regclass);
+
+
+--
 -- Name: b_params id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -2409,6 +2451,14 @@ ALTER TABLE ONLY public.wheel_sizes ALTER COLUMN id SET DEFAULT nextval('public.
 
 ALTER TABLE ONLY public.ads
     ADD CONSTRAINT ads_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: ambassador_tasks ambassador_tasks_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.ambassador_tasks
+    ADD CONSTRAINT ambassador_tasks_pkey PRIMARY KEY (id);
 
 
 --
@@ -2809,6 +2859,13 @@ ALTER TABLE ONLY public.users
 
 ALTER TABLE ONLY public.wheel_sizes
     ADD CONSTRAINT wheel_sizes_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: index_ambassador_tasks_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_ambassador_tasks_on_user_id ON public.ambassador_tasks USING btree (user_id);
 
 
 --
@@ -3229,6 +3286,14 @@ CREATE INDEX index_users_on_password_reset_token ON public.users USING btree (pa
 --
 
 CREATE UNIQUE INDEX unique_schema_migrations ON public.schema_migrations USING btree (version);
+
+
+--
+-- Name: ambassador_tasks fk_rails_ada5187fde; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.ambassador_tasks
+    ADD CONSTRAINT fk_rails_ada5187fde FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE CASCADE;
 
 
 --
@@ -3926,4 +3991,8 @@ INSERT INTO schema_migrations (version) VALUES ('20190401233010');
 INSERT INTO schema_migrations (version) VALUES ('20190402230848');
 
 INSERT INTO schema_migrations (version) VALUES ('20190422221408');
+
+INSERT INTO schema_migrations (version) VALUES ('20190424001657');
+
+INSERT INTO schema_migrations (version) VALUES ('20190514155447');
 

@@ -1,0 +1,12 @@
+class AmbassadorTask < ActiveRecord::Base
+  belongs_to :user
+  validates :user, presence: true
+  validate :associated_user_is_an_ambassador
+
+  private
+
+  def associated_user_is_an_ambassador
+    return if user&.ambassador?
+    errors.add(:user, "must be an ambassador")
+  end
+end
