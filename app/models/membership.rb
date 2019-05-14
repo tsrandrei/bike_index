@@ -12,7 +12,7 @@ class Membership < ActiveRecord::Base
 
   after_commit :update_relationships
 
-  scope :ambassadorships, -> { where(organization: Organization.ambassador) }
+  scope :ambassador_organizations, -> { where(organization: Organization.ambassador).order(:created_at) }
 
   def self.membership_types
     MEMBERSHIP_TYPES

@@ -38,7 +38,7 @@ class User < ActiveRecord::Base
 
   scope :confirmed, -> { where(confirmed: true) }
   scope :unconfirmed, -> { where(confirmed: false) }
-  scope :ambassadors, -> { where(id: Membership.ambassadorships.select(:user_id)).order(created_at: :asc) }
+  scope :ambassadors, -> { where(id: Membership.ambassador_organizations.select(:user_id)).order(created_at: :asc) }
 
   validates_uniqueness_of :username, case_sensitive: false
 
@@ -124,15 +124,7 @@ class User < ActiveRecord::Base
   def developer?; developer end
 
   def ambassador?
-    ambassador_index =
-      Organization
-        .kinds
-        .index { |kind| kind == "ambassador" }
-
-    memberships
-      .includes(:organization)
-      .where(organizations: { kind: ambassador_index })
-      .any?
+    memberships.ambassador_organizations.any?
   end
 
   def to_param; username end
