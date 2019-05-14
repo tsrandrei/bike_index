@@ -125,6 +125,7 @@ Bikeindex::Application.routes.draw do
 
   namespace :admin do
     root to: "dashboard#index"
+    resources :ambassadors, only: [:index]
     resources :bikes do
       collection do
         get :duplicates
