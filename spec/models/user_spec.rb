@@ -6,23 +6,11 @@ describe User do
       it "returns any and only users who are ambassadors" do
         FactoryBot.create(:user)
         FactoryBot.create(:developer)
-        ambassadors = FactoryBot.create_list(:ambassador, 3)
+        ambassadors = FactoryBot.create_list(:user_ambassador, 3)
 
         found_ambassadors = User.ambassadors
 
         expect(found_ambassadors).to eq(ambassadors.sort_by(&:created_at))
-      end
-    end
-
-    context "given ambassadors and an org filter" do
-      it "returns any and only ambassadors in the given ambassador org" do
-        FactoryBot.create(:user)
-        FactoryBot.create(:developer)
-        ambassadors = FactoryBot.create_list(:ambassador, 3)
-
-        found_ambassadors = User.ambassadors(organization: ambassadors.first.organizations.first)
-
-        expect(found_ambassadors).to eq([ambassadors.first])
       end
     end
 
@@ -36,14 +24,6 @@ describe User do
       it "returns an empty array" do
         FactoryBot.create(:developer)
         expect(User.ambassadors).to eq([])
-      end
-    end
-
-    context "with an organization filter that empties the result set" do
-      it "returns an empty array" do
-        FactoryBot.create_list(:ambassador, 3)
-        result = User.ambassadors(organization: FactoryBot.create(:organization))
-        expect(result).to eq([])
       end
     end
   end

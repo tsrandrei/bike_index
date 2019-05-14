@@ -95,12 +95,9 @@ class User < ActiveRecord::Base
        joins(:user_emails).where("user_emails.email ILIKE ?", search_str)).uniq
     end
 
-    def ambassadors(organization: nil)
+    def ambassadors
       ambassador_orgs = Organization.ambassador
-      ambassador_orgs = ambassador_orgs.merge(Organization.where(id: organization.id)) if organization
-
       ambassadorships = Membership.where(organization: ambassador_orgs)
-
       where(id: ambassadorships.select(:user_id)).order(created_at: :asc)
     end
   end
