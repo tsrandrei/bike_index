@@ -78,7 +78,7 @@ CREATE TABLE public.ambassador_task_assignments (
     id integer NOT NULL,
     user_id integer NOT NULL,
     ambassador_task_id integer NOT NULL,
-    completed boolean DEFAULT false NOT NULL,
+    completed_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );

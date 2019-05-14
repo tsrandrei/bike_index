@@ -9,7 +9,7 @@ class CreateAmbassadorTasks < ActiveRecord::Migration
     create_table :ambassador_task_assignments do |t|
       t.belongs_to :user, index: true, null: false
       t.belongs_to :ambassador_task, index: true, null: false
-      t.boolean :completed, null: false, default: false
+      t.datetime :completed_at
 
       t.timestamps null: false
     end
