@@ -63,7 +63,7 @@ describe "Organization API V3" do
           ENV["ALLOWED_WRITE_ORGANIZATIONS"] = "some-other-uid"
           post url, organization_json, json_headers
           expect_status 401
-          expect_json(error: "Unauthorized. Cannot write organiztions")
+          expect_json(error: "Unauthorized. Cannot write organizations")
         end
       end
     end
