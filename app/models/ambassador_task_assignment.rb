@@ -8,6 +8,10 @@ class AmbassadorTaskAssignment < ActiveRecord::Base
   validates :ambassador_task, uniqueness: { scope: :user }
   validate :associated_user_is_an_ambassador
 
+  def completed?
+    completed_at.present?
+  end
+
   private
 
   def associated_user_is_an_ambassador

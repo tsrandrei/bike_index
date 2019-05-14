@@ -47,7 +47,8 @@ describe User do
     it { is_expected.to have_many :sent_stolen_notifications }
     it { is_expected.to have_many :received_stolen_notifications }
     it { is_expected.to validate_presence_of :email }
-    # it { is_expected.to validate_uniqueness_of :email }
+    it { is_expected.to have_many :ambassador_task_assignments }
+    it { is_expected.to have_many(:ambassador_tasks).through(:ambassador_task_assignments) }
   end
 
   describe "create user_email" do

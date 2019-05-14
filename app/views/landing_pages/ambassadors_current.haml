@@ -13,8 +13,7 @@
     .ribbon
       .container
         .noribbon
-  -# TODO: Un-hardcode this list
-  -# Organization.where(kind: Organization.kinds.index {|org| org == "ambassador" }).map{|org| org.memberships.map(&:user) }.flatten
+  -# TODO: Un-hardcode this list Ambassador.all
   .container.ambassadors-list
     // Right now, this looks better with justify-content: center - but space-around looks better depending on the item count.
     .row
