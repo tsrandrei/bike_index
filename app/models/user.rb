@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
 
   mount_uploader :avatar, AvatarUploader
 
+  has_many :ambassador_tasks, through: :ambassador_task_assignments
   has_many :payments
   has_many :subscriptions, -> { subscription }, class_name: "Payment"
   has_many :memberships, dependent: :destroy

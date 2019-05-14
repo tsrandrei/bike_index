@@ -71,14 +71,46 @@ ALTER SEQUENCE public.ads_id_seq OWNED BY public.ads.id;
 
 
 --
+-- Name: ambassador_task_assignments; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.ambassador_task_assignments (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    ambassador_task_id integer NOT NULL,
+    completed boolean DEFAULT false NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: ambassador_task_assignments_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.ambassador_task_assignments_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: ambassador_task_assignments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.ambassador_task_assignments_id_seq OWNED BY public.ambassador_task_assignments.id;
+
+
+--
 -- Name: ambassador_tasks; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.ambassador_tasks (
     id integer NOT NULL,
     description character varying DEFAULT ''::character varying NOT NULL,
-    completed boolean DEFAULT false NOT NULL,
-    user_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -1765,7 +1797,7 @@ ALTER SEQUENCE public.recovery_displays_id_seq OWNED BY public.recovery_displays
 --
 
 CREATE TABLE public.schema_migrations (
-    version character varying(255) NOT NULL
+    version character varying NOT NULL
 );
 
 
@@ -2086,6 +2118,13 @@ ALTER SEQUENCE public.wheel_sizes_id_seq OWNED BY public.wheel_sizes.id;
 --
 
 ALTER TABLE ONLY public.ads ALTER COLUMN id SET DEFAULT nextval('public.ads_id_seq'::regclass);
+
+
+--
+-- Name: ambassador_task_assignments id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.ambassador_task_assignments ALTER COLUMN id SET DEFAULT nextval('public.ambassador_task_assignments_id_seq'::regclass);
 
 
 --
@@ -2451,6 +2490,14 @@ ALTER TABLE ONLY public.wheel_sizes ALTER COLUMN id SET DEFAULT nextval('public.
 
 ALTER TABLE ONLY public.ads
     ADD CONSTRAINT ads_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: ambassador_task_assignments ambassador_task_assignments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.ambassador_task_assignments
+    ADD CONSTRAINT ambassador_task_assignments_pkey PRIMARY KEY (id);
 
 
 --
@@ -2862,10 +2909,17 @@ ALTER TABLE ONLY public.wheel_sizes
 
 
 --
--- Name: index_ambassador_tasks_on_user_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_ambassador_task_assignments_on_ambassador_task_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_ambassador_tasks_on_user_id ON public.ambassador_tasks USING btree (user_id);
+CREATE INDEX index_ambassador_task_assignments_on_ambassador_task_id ON public.ambassador_task_assignments USING btree (ambassador_task_id);
+
+
+--
+-- Name: index_ambassador_task_assignments_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_ambassador_task_assignments_on_user_id ON public.ambassador_task_assignments USING btree (user_id);
 
 
 --
@@ -3289,11 +3343,19 @@ CREATE UNIQUE INDEX unique_schema_migrations ON public.schema_migrations USING b
 
 
 --
--- Name: ambassador_tasks fk_rails_ada5187fde; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: ambassador_task_assignments fk_rails_6c31316b38; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.ambassador_tasks
-    ADD CONSTRAINT fk_rails_ada5187fde FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE CASCADE;
+ALTER TABLE ONLY public.ambassador_task_assignments
+    ADD CONSTRAINT fk_rails_6c31316b38 FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE CASCADE;
+
+
+--
+-- Name: ambassador_task_assignments fk_rails_d557be2cfa; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.ambassador_task_assignments
+    ADD CONSTRAINT fk_rails_d557be2cfa FOREIGN KEY (ambassador_task_id) REFERENCES public.ambassador_tasks(id) ON DELETE CASCADE;
 
 
 --
